@@ -7,20 +7,20 @@
         <br>
         <br>
 
-        <div class="card-list">
-            <div v-for="(employee, i) in filterTest" :key="i">
-                <app-profile
+        <div class="card__element">
+            <div >
+                <Profile 
+                    v-for="(employee, i) in company" 
+                    :key="i"
                     :name="employee.name"
                     :title="employee.title"
                     :office="employee.office"
                     :email="employee.email"
-                    :isManager="employee.manager != null"
+                    :isManager=" employee.name "
+                    :company="employee.manager"
                     >
-                </app-profile>
-                
+                </Profile>
             </div>
-            
-
         </div>
     </div>
 </template>
@@ -33,59 +33,13 @@ export default {
         }
     },
     props: {
-        employees: {
-            type: Array,
-            required: true
+        company: {
+            type: Array
         }
     },
     components:{
-        appProfile: Profile
-    },
-    computed: {
-        filteredItems() {
-            console.log(Object.keys(this.employees).length + ' - length')
-         
-            return this.employees.filter(employee => {
-                console.log(employee + ' filter')
-                return ( employee.title.toLowerCase().indexOf(this.search.toLowerCase()) >= 0 ||
-                    employee.name.toLowerCase().indexOf(this.search.toLowerCase()) >= 0 ||
-                    employee.office.toLowerCase().indexOf(this.search.toLowerCase()) >= 0   )
-            })
-        },
-        filterTest(){
-            return this.employees.filter(employee => {
-                // if (employee.manager.length > 1){
-                //     for( var i=0; i < employee.manager.length; i ++){
-                //         employee.manager[i] = this.filterTest(employee[i]);
-                //         if(employee.manager[i].manager.length > 1){
-                //             return;
-                //         }
-                        
-                //     }
-                // }
-                    return ( employee.title.toLowerCase().indexOf(this.search.toLowerCase()) >= 0 ||
-                    employee.name.toLowerCase().indexOf(this.search.toLowerCase()) >= 0 ||
-                    employee.office.toLowerCase().indexOf(this.search.toLowerCase()) >= 0   )
-           
-                
-            })
-
-        },
-        path(){
-            return this.employees[0]
-        },
-        children(){
-            return this.employees[this.item]
-        },
-        childPath(){
-            return this.employees.manager.slice(1)
-        },
-        isPath(){
-            return this.employees.manager.length > 1
-        }
-
-    },
-
+        Profile,
+    }
 }
 </script>
 <style scoped>
@@ -93,8 +47,9 @@ export default {
         display: flex;
         padding: 20px;
         box-sizing: border-box;
-        flex-wrap: wrap;
+        flex-wrap: wrap ;
         align-items: center;
         justify-content: center;
+        max-width: 1200px;
     }
 </style>

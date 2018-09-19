@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <h1 style="text-align: center">The Office</h1>
-    <app-profile-list :employees= "employees"></app-profile-list>
+    <h1 style="text-align: center">The Company</h1>
+    <app-profile-list :company= "employees"></app-profile-list>
 
   </div>
 </template>
@@ -24,8 +24,9 @@ export default {
   created(){
     axios.get('/src/assets/FakeOrgJSON.json')
     .then(data => {
-      this.employees = data.data
-      console.log(this.employees + ' at create')
+      console.log(data.data)
+      return this.employees= data.data
+      
 
     })
     .catch(err => {;
