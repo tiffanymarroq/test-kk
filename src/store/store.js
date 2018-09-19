@@ -15,10 +15,11 @@ const createStore = () => {
         },
         actions:{
             recursiveArr(context, arr){
+                console.log(arr)
                 for(var i in arr){
-                    context.dispatch('setCompany', i)
+                    context.commit('setCompany', i)
                     if(i.manager != null){
-                        recursiveArr(context, i.manager)
+                        this.recursiveArr(context, i.manager)
                     }
                 }
             }

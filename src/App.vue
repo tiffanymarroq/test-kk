@@ -21,12 +21,26 @@ export default {
   created(){
     axios.get('/src/assets/FakeOrgJSON.json')
     .then(data => {
-      return this.employees= data.data
+      this.createArr(data.data)
     })
     .catch(err => {;
       console.log(err)
     })
   },
+  methods: {
+    createArr(arr){
+      console.log(arr)
+       for(var i in arr){
+      console.log(arr[i] + 'arr')
+         
+          this.employees.push(i)
+          if(i.manager != null){
+              this.recursiveArr(context, i.manager)
+          }
+      }
+    }
+  }
+  
 }
 </script>
 
