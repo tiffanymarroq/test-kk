@@ -1,33 +1,31 @@
 <template>
     <div>
         <div style="text-align: center">
-            
             <p>Search Here</p>
             <input placeholder=" Name, Title, or Office" v-model="search" type="text">
         </div>
         <br>
         <br>
         <div class="card-list">
-        
             <app-profile
                 v-for="(employee, i) in filteredItems" :key="i"
                 :name="employee.name"
                 :title="employee.title"
                 :office="employee.office"
                 :email="employee.email"
-                :isManager="employee.manager != null">
+                :isManager="employee.manager != null"
+                >
             </app-profile>
+
         </div>
     </div>
-
-
 </template>
 <script>
 import Profile from './Profile.vue'
 export default {
     data(){
         return{
-            search: ''
+            search: '',
         }
     },
     props: {
@@ -41,11 +39,11 @@ export default {
     },
     computed: {
         filteredItems() {
-            return this.employees[0].manager.filter(employee => {
-                return ( 
-                    employee.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ,
-                    employee.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ,
-                    employee.office.toLowerCase().indexOf(this.search.toLowerCase()) > -1  )
+            return this.employees.filter(employee => {
+                console.log(employee)
+                return ( employee.title.toLowerCase().indexOf(this.search.toLowerCase()) >= 0 ||
+                    employee.name.toLowerCase().indexOf(this.search.toLowerCase()) >= 0 ||
+                    employee.office.toLowerCase().indexOf(this.search.toLowerCase()) >= 0   )
             })
         }
     }

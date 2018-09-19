@@ -40,6 +40,9 @@
       isManager: {
           type: Boolean,
           required: true
+      },
+      manager: {
+        type: String
       }
     }
   }
