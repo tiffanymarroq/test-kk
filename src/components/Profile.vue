@@ -1,11 +1,14 @@
 <template>
   <div class="card__element">
     <div class="card__content">
-      <h1 class="card__title">{{title}}</h1>
-      <p>{{name}}</p>
-      <p>{{office}}</p>
-      <p>{{email}}</p>
-      <p v-show="isManager">Manager</p>
+      <h2 class="card__title">{{title}}</h2>
+      <div class="card__info">
+        <p>Name - {{name}}</p>
+        <p>Office - {{office}}</p>
+        <p>Email - {{email}}</p>
+        <p v-show="isManager">Manager</p>
+      </div>
+
     </div>
   </div>
  
@@ -47,20 +50,29 @@
   .card__element{
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-shadow: 0 2px 2px #ccc;
+    box-shadow: 1px 2px 3px #ccc;
     background-color: white;
     width: 300px;
+    min-height: 300px;
+    margin: 5px;
+    
+  }
+  .card__element:hover{
+    box-shadow: none;
   }
 
   .card__content{
     padding: 20px; 
-    text-align: center
     
+  }
+  .card__info{
+    margin-left: auto;
+    margin-right: auto    
   }
 
   .card__title{
-    text-decoration: underline;
-
+    text-transform: uppercase;
+    text-align: center
   }
 </style>
 

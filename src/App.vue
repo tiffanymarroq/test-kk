@@ -1,10 +1,6 @@
 <template>
   <div id="app">
-    <h1>Workers</h1>
-    <input v-model="inputElement" type="text">
-    <div v-for="(employee, i) in filteredItems" :key = "i">
-      {{employee.title}}
-    </div>
+    <h1 style="text-align: center">The Office</h1>
     <app-profile-list :employees= "employees"></app-profile-list>
 
   </div>
@@ -30,11 +26,13 @@ export default {
     .then(data => {
       this.employees = data.data
       console.log(this.employees)
-      
+
+    })
+    .catch(err => {;
+      console.log(err)
     })
   },
-
-    computed: {
+  computed: {
     filteredItems() {
       return this.employees.filter(employee => {
          return 
@@ -43,11 +41,26 @@ export default {
          employee.office.indexOf(this.inputElement.toLowerCase()) > -1 
       })
     }
-  
+  },
+  methods: {
+    arrayValues(){
+      Object.keys(this.employees).forEach(function(value, key) {
+        console.log(value);
+        this.employees[value].forEach(function(v, k) {
+          console.log(v.name)
+        })
+      })
+    }
   }
 }
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+  body{
+    padding: 50px 20px;
+    font-family: 'Lato', Arial, Helvetica, sans-serif
+  }
 
 </style>
