@@ -25,7 +25,7 @@ export default {
     axios.get('/src/assets/FakeOrgJSON.json')
     .then(data => {
       this.employees = data.data
-      console.log(this.employees)
+      console.log(this.employees + ' at create')
 
     })
     .catch(err => {;

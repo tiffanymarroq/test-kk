@@ -6,8 +6,9 @@
         </div>
         <br>
         <br>
+
         <div class="card-list">
-            <div v-for="(employee, i) in filteredItems" :key="i">
+            <div v-for="(employee, i) in filterTest" :key="i">
                 <app-profile
                     :name="employee.name"
                     :title="employee.title"
@@ -42,16 +43,49 @@ export default {
     },
     computed: {
         filteredItems() {
-            // for(int i = 0; i <)
             console.log(Object.keys(this.employees).length + ' - length')
-            return this.employees[0].manager[1].manager.filter(employee => {
-                console.log(employee)
+         
+            return this.employees.filter(employee => {
+                console.log(employee + ' filter')
                 return ( employee.title.toLowerCase().indexOf(this.search.toLowerCase()) >= 0 ||
                     employee.name.toLowerCase().indexOf(this.search.toLowerCase()) >= 0 ||
                     employee.office.toLowerCase().indexOf(this.search.toLowerCase()) >= 0   )
             })
+        },
+        filterTest(){
+            return this.employees.filter(employee => {
+                // if (employee.manager.length > 1){
+                //     for( var i=0; i < employee.manager.length; i ++){
+                //         employee.manager[i] = this.filterTest(employee[i]);
+                //         if(employee.manager[i].manager.length > 1){
+                //             return;
+                //         }
+                        
+                //     }
+                // }
+                    return ( employee.title.toLowerCase().indexOf(this.search.toLowerCase()) >= 0 ||
+                    employee.name.toLowerCase().indexOf(this.search.toLowerCase()) >= 0 ||
+                    employee.office.toLowerCase().indexOf(this.search.toLowerCase()) >= 0   )
+           
+                
+            })
+
+        },
+        path(){
+            return this.employees[0]
+        },
+        children(){
+            return this.employees[this.item]
+        },
+        childPath(){
+            return this.employees.manager.slice(1)
+        },
+        isPath(){
+            return this.employees.manager.length > 1
         }
-    }
+
+    },
+
 }
 </script>
 <style scoped>
