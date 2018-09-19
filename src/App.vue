@@ -1,8 +1,7 @@
 <template>
   <div id="app">
-    <h1 style="text-align: center">The Company</h1>
+    <h1 style="text-align: center; text-transform: uppercase">The Company</h1>
     <app-profile-list :company= "employees"></app-profile-list>
-
   </div>
 </template>
 
@@ -13,9 +12,7 @@ export default {
   name: 'app',
   data () {
     return{
-      inputElement: '',
-      employees: []
-      
+      employees: []  
     }
   },
   components: {
@@ -24,35 +21,12 @@ export default {
   created(){
     axios.get('/src/assets/FakeOrgJSON.json')
     .then(data => {
-      console.log(data.data)
       return this.employees= data.data
-      
-
     })
     .catch(err => {;
       console.log(err)
     })
   },
-  computed: {
-    filteredItems() {
-      return this.employees.filter(employee => {
-         return 
-         employee.title.indexOf(this.inputElement.toLowerCase()) > -1 ||
-         employee.name.indexOf(this.inputElement.toLowerCase()) > -1 ||
-         employee.office.indexOf(this.inputElement.toLowerCase()) > -1 
-      })
-    }
-  },
-  methods: {
-    arrayValues(){
-      Object.keys(this.employees).forEach(function(value, key) {
-        console.log(value);
-        this.employees[value].forEach(function(v, k) {
-          console.log(v.name)
-        })
-      })
-    }
-  }
 }
 </script>
 

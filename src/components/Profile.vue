@@ -1,16 +1,6 @@
 <template>
   <div>
-      
-    <Profile  class="flex"  
-        v-for="(employee, i) in filteredItems" 
-        :key="i"
-        :name="employee.name"
-        :title="employee.title"
-        :office="employee.office"
-        :email="employee.email"
-        :isManager=" employee.name "
-        :company="employee.manager"
-      ></Profile>
+    
     <div class="card__element">
       <div class="card__content">
         <h2 class="card__title">{{title}}</h2>
@@ -18,10 +8,22 @@
           <p>Name - {{name}}</p>
           <p>Office - {{office}}</p>
           <p>Email - {{email}}</p>
-          <!-- <p v-show="isManager">Manager</p> -->
+          <p v-show="isManager">Manager</p>
         </div>
       </div>
     </div>
+
+    <Profile class="flex"
+        v-for="(employee, i) in company" 
+        :key="i"
+        :name="employee.name"
+        :title="employee.title"
+        :office="employee.office"
+        :email="employee.email"
+        :isManager=" employee.name "
+        :company="employee.manager"
+        :search="search"
+      ></Profile>
   </div>
 
 </template>
@@ -31,7 +33,7 @@
     name: 'Profile',
     data() {
       return {
-        search: ''
+        employees: []
       }
     },
     props: {
@@ -57,23 +59,43 @@
       },
       company: {
         type: Array
+      },
+      search: {
+        type: String
       }
-
-
     },
     computed: {
       filteredItems() {
-        console.log(this.company == null)
         if (this.company != null) {
           return this.company.filter(employee => {
-            console.log(employee.title + ' filter')
-            return employee.title.toLowerCase().includes(this.search.toLowerCase())
-            // employee.name.toLowerCase().indexOf(this.search) >= -1 ||
-            // employee.office.toLowerCase().indexOf(this.search.toLowerCase()) >= -1   )
+            if(employee.title.includes(this.search)){
+              // console.log(employee.title + ' filtered')
+              return true
+            }
+       
+            return false
           })
         }
       },
     },
+    methods: {
+       find(employee, key)
+        {
+            for (employed in employee)
+            {
+                if (employed.name.includes(key) || employed.title.includes(key) || employed.office.includes(key) )
+                  console.log(employed.title)
+                    return employed;
+                if (employed.manager != null)
+                {
+                    var subresult = find(employed.manager, key);
+                    if (subresult)
+                        return subresult;
+                }
+            }
+            return employee
+      }
+    }
   }
 
 
@@ -97,12 +119,15 @@
   }
   .flex{
     display: flex;
-        /* padding: 20px; */
-        box-sizing: border-box;
-        flex-wrap: wrap ;
-        align-content: center;
-        justify-content: center;
-        /* max-width: 800px; */
+    /* padding: 20px; */
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    flex-flow: row-reverse  wrap;
+    align-content: center; 
+    justify-content: center;
+    /* float: left; */
+    
+    /* max-width: 800px; */
   }
   .card__element:hover{
     box-shadow: none;
