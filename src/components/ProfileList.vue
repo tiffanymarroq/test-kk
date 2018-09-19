@@ -7,15 +7,18 @@
         <br>
         <br>
         <div class="card-list">
-            <app-profile
-                v-for="(employee, i) in filteredItems" :key="i"
-                :name="employee.name"
-                :title="employee.title"
-                :office="employee.office"
-                :email="employee.email"
-                :isManager="employee.manager != null"
-                >
-            </app-profile>
+            <div v-for="(employee, i) in filteredItems" :key="i">
+                <app-profile
+                    :name="employee.name"
+                    :title="employee.title"
+                    :office="employee.office"
+                    :email="employee.email"
+                    :isManager="employee.manager != null"
+                    >
+                </app-profile>
+                
+            </div>
+            
 
         </div>
     </div>
@@ -39,7 +42,9 @@ export default {
     },
     computed: {
         filteredItems() {
-            return this.employees.filter(employee => {
+            // for(int i = 0; i <)
+            console.log(Object.keys(this.employees).length + ' - length')
+            return this.employees[0].manager[1].manager.filter(employee => {
                 console.log(employee)
                 return ( employee.title.toLowerCase().indexOf(this.search.toLowerCase()) >= 0 ||
                     employee.name.toLowerCase().indexOf(this.search.toLowerCase()) >= 0 ||

@@ -41,9 +41,7 @@
           type: Boolean,
           required: true
       },
-      manager: {
-        type: String
-      }
+
     }
   }
 
@@ -53,7 +51,7 @@
   .card__element{
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-shadow: 1px 2px 3px #ccc;
+    box-shadow: 0px 2px 6px #ccc;
     background-color: white;
     width: 300px;
     min-height: 300px;
