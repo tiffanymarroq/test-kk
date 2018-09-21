@@ -1,7 +1,7 @@
 <template>
 
-  <div >
-    <div :key="key" v-for="(value, key) in filterArr">
+  <div>
+    <div :key="key" v-for="(value, key) in filterArr" >
       <div class="card__element">
         <div class="card__content">
           <strong>{{value.name}}</strong>
@@ -33,12 +33,19 @@ export default {
     filterArr() { 
        return this.$store.getters.getCompany.filter( m =>{
         return (m.name.toLowerCase().includes(this.search.toLowerCase()) ||
-         m.title.toLowerCase().includes(this.search.toLowerCase()) ||
-         m.office.toLowerCase().includes(this.search.toLowerCase())  ) 
+          m.title.toLowerCase().includes(this.search.toLowerCase()) ||
+          m.office.toLowerCase().includes(this.search.toLowerCase())  ) 
       })
-    }
-  },
+    },
 
+  },
+  watch: {
+    filterArr(){
+      console.log('?')
+      console.log(this.filterArr.length)
+      this.$store.commit('setResults', this.filterArr.length)
+    }
+  }
 }
 
 

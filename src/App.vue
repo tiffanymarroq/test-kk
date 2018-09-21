@@ -5,13 +5,15 @@
       <div style="text-align: center">
         <p>Search Here</p>
         <input placeholder=" Name, Title, or Office" v-model="search" type="text">
-        <br> {{search}}
+        <br>
+        <p>Found: {{getResults}}</p>
+     
       </div>
       <br>
       <br>
       <div >
-        <item class="flex" :model="getArr" :search="search">
-        </item>
+        <employees class="flex" :model="getArr" :search="search">
+        </employees>
       </div>
     </div>
   </div>
@@ -21,8 +23,7 @@
 
 <script>
 import axios from 'axios'
-import ProfileList from './components/ProfileList.vue'
-import Tree from './components/Tree.vue'
+import Employees from './components/Employees.vue'
 export default {
   name: 'app',
   data () {
@@ -34,8 +35,7 @@ export default {
     }
   },
   components: {
-    appProfileList: ProfileList,
-    item: Tree
+    employees: Employees
   },
   created(){
     axios.get('/src/assets/FakeOrgJSON.json')
@@ -51,11 +51,13 @@ export default {
   computed:{
     getArr(){
       return this.$store.getters.getCompany
+    },
+    getResults(){
+      return this.$store.getters.getNumberResults
     }
   },
   methods: {
        setEmployees(arr) {
-
         for (var a in arr) {
           this.$store.commit('setCompany',{
             name: arr[a].name,
@@ -74,17 +76,16 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Lato');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+
 
   body{
     padding: 50px 20px;
-    font-family: 'Lato', Arial, Helvetica, sans-serif
+    font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif
   }
 
-  body {
-  font-family: Menlo, Consolas, monospace;
-  color: #444;
-}
+
+
 .item {
   cursor: pointer;
 }

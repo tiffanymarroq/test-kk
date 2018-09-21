@@ -6,10 +6,14 @@ const createStore = () => {
     return new Vuex.Store({
         state:{
             company:[],
+            results: 0 
         },
         mutations:{
             setCompany(state, employee){
                 state.company.push(employee)
+            },
+            setResults(state, length){
+                state.results = length
             }
         },
         actions:{
@@ -18,6 +22,9 @@ const createStore = () => {
         getters: {
             getCompany(state) { 
                 return state.company
+            },
+            getNumberResults(state){
+                return state.results
             }
         }
     })
