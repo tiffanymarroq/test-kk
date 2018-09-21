@@ -1,5 +1,4 @@
 <template>
-
   <div>
     <div :key="key" v-for="(value, key) in filterArr" >
       <div class="card__element">
@@ -13,17 +12,12 @@
     </div>
   </div>
 </template>
-
-
-
-
 <script>
 export default {
-  name: 'item',
+  name: 'employees',
   data() {
     return {
-      name: '',
-      company: []
+
     }
   },
   props: {
