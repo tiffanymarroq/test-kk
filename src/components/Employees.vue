@@ -41,8 +41,6 @@ export default {
   },
   watch: {
     filterArr(){
-      console.log('?')
-      console.log(this.filterArr.length)
       this.$store.commit('setResults', this.filterArr.length)
     }
   }
