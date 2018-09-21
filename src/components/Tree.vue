@@ -52,7 +52,9 @@ export default {
         //   console.log(this.findElement(m, this.search))
 
           if (m.name.includes(this.search)) {
+            temp.push(m.name)
             console.log(m.name)
+            console.log(temp)
             return true
           }
           return false
@@ -94,16 +96,15 @@ export default {
 </script>
 
 <style scoped>
-    .item {
+    /* .item {
       display: flex;
-      /* padding: 20px; */
+      padding: 20px;
       box-sizing: border-box;
       flex-wrap: wrap;
-      /* flex-flow: row-reverse  wrap; */
       align-content: center;
       justify-content: center;
-      /* float: left; */
-      /* max-width: 800px; */
-    }
+      float: left;
+      max-width: 800px;
+    } */
 
 </style>
