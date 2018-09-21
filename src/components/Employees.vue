@@ -4,8 +4,8 @@
     <div :key="key" v-for="(value, key) in filterArr" >
       <div class="card__element">
         <div class="card__content">
-          <strong>{{value.name}}</strong>
-          <p>Title - {{value.title}}</p>
+          <strong><p>{{value.title}}</p></strong>
+          <p> {{value.name}}</p>
           <p>Email - {{value.email}}</p>
           <p>Office - {{value.office}}</p>
         </div>
@@ -57,8 +57,8 @@ export default {
     border-radius: 5px;
     box-shadow: 0px 2px 6px #ccc;
     background-color: white;
-    width: 350px;
-    min-height: 200px;
+    width: 300px;
+    min-height: 250px;
     margin: 5px;
     display: inline-block;
   }
