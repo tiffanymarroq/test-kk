@@ -49,6 +49,8 @@ export default {
       if (this.model != null) {
         return this.model.filter(m => {
           console.log(this.search)
+        //   console.log(this.findElement(m, this.search))
+
           if (m.name.includes(this.search)) {
             console.log(m.name)
             return true
@@ -59,6 +61,16 @@ export default {
     }
   },    
   methods: {
+    findElement(arr, value){
+        if(arr != null){
+                    for(var i in arr){
+                    if(arr[i].name.includes(value)){
+                        console.log(arr[i].name)
+                    }
+                }
+        }
+
+    },
     toggle: function () {
       if (this.isFolder) {
         this.open = !this.open
