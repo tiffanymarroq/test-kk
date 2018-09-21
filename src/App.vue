@@ -84,8 +84,6 @@ export default {
     font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif
   }
 
-
-
 .item {
   cursor: pointer;
 }
@@ -98,9 +96,5 @@ export default {
         justify-content: center;
         max-width: 1200px;
 }
-.bold {
-  font-weight: bold;
-}
-
 
 </style>

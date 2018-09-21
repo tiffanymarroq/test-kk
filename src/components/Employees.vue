@@ -4,7 +4,7 @@
     <div :key="key" v-for="(value, key) in filterArr" >
       <div class="card__element">
         <div class="card__content">
-          <strong><p>{{value.title}}</p></strong>
+          <p class="card__title">{{value.title}}</p>
           <p> {{value.name}}</p>
           <p>Email - {{value.email}}</p>
           <p>Office - {{value.office}}</p>
@@ -69,13 +69,11 @@ export default {
     padding: 20px; 
     
   }
-  .card__info{
-    margin-left: auto;
-    margin-right: auto    
-  }
 
   .card__title{
     text-transform: uppercase;
-    text-align: center
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.3rem
   }
 </style>
