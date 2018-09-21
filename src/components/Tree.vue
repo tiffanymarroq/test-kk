@@ -1,10 +1,9 @@
 <template>
     <li>
         <div>       
-        <!-- <span v-if="isFolder">[{{ open ? '-' : '+' }}]</span> -->
-        <!-- <h1>YEP</h1> -->
          <div  :key = "key" v-for="(value, key) in model">
-             <strong>{{value.name}}</strong> - {{value.title}}
+             <strong>{{value.name}}</strong> - 
+             <p>Title - {{value.title}}</p>
              <p>Email - {{value.email}}</p>
              <p>Office - {{value.office}}</p>
              
@@ -15,8 +14,9 @@
         <ul >
         <item
             class="item"
-            v-for="(model, index) in model"
+            v-for="(model, index) in filterArr"
             :key="index"
+            :search="search"
             :model="model.manager"> 
         </item>
         <!-- <li class="add" @click="addChild">+</li> -->
@@ -34,6 +34,7 @@ export default {
     },
   props: {
     model: Array,
+    search: String
 
   },
   data: function () {
@@ -42,19 +43,19 @@ export default {
     }
   },
   computed: {
-    isFolder: function () {
-      return this.model.manager &&
-        this.model.manager.length
-    },
-    filterArr(){
-        var tmp = []
-        console.log(this.model.name)
-        if(this.model.name.includes('')){
-            tmp.push(this.model)
-        }
-        console.log(tmp)
-        return tmp  
 
+    filterArr() {
+      var temp = []
+      if (this.model != null) {
+        return this.model.filter(m => {
+          console.log(this.search)
+          if (m.name.includes(this.search)) {
+            console.log(m.name)
+            return true
+          }
+          return false
+        })
+      }
     }
   },    
   methods: {
@@ -81,5 +82,16 @@ export default {
 </script>
 
 <style scoped>
-    
+    .item {
+      display: flex;
+      /* padding: 20px; */
+      box-sizing: border-box;
+      flex-wrap: wrap;
+      /* flex-flow: row-reverse  wrap; */
+      align-content: center;
+      justify-content: center;
+      /* float: left; */
+      /* max-width: 800px; */
+    }
+
 </style>

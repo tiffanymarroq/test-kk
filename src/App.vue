@@ -1,16 +1,23 @@
 <template>
   <div id="app">
-    <h1 style="text-align: center; text-transform: uppercase">The Company</h1>
-    <div >
-          <item
-            class="item"
-            :model="employees"
-            >
-    </item>
+    <div>
+      <h1 style="text-align: center; text-transform: uppercase">The Company</h1>
+      <div style="text-align: center">
+        <p>Search Here</p>
+        <input placeholder=" Name, Title, or Office" v-model="search" type="text">
+        <br> {{search}}
+      </div>
+      <br>
+      <br>
+      <div class="flex">
+        <item class="item" :model="employees" :search="search">
+        </item>
+      </div>
     </div>
-
   </div>
 </template>
+
+
 
 <script>
 import axios from 'axios'
@@ -21,6 +28,7 @@ export default {
   data () {
     return{
       employees: [],
+      search: ''
     
   
     }
@@ -60,11 +68,17 @@ export default {
 .item {
   cursor: pointer;
 }
+.flex{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center
+}
 .bold {
   font-weight: bold;
 }
 ul {
-  padding-left: 5em;
+  padding-left: 0em;
   line-height: 1.5em;
   list-style-type: none;
 }
