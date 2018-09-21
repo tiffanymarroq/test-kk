@@ -1,44 +1,45 @@
 <template>
   <div id="app">
     <h1 style="text-align: center; text-transform: uppercase">The Company</h1>
-    <app-profile-list :company= "employees"></app-profile-list>
+    <div >
+          <item
+            class="item"
+            :model="employees"
+            >
+    </item>
+    </div>
+
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import ProfileList from './components/ProfileList.vue'
+import Tree from './components/Tree.vue'
 export default {
   name: 'app',
   data () {
     return{
-      employees: []  
+      employees: [],
+    
+  
     }
   },
   components: {
-    appProfileList: ProfileList
+    appProfileList: ProfileList,
+    item: Tree
   },
   created(){
     axios.get('/src/assets/FakeOrgJSON.json')
     .then(data => {
-      this.createArr(data.data)
+      this.employees = data.data
     })
     .catch(err => {;
       console.log(err)
     })
   },
   methods: {
-    createArr(arr){
-      console.log(arr)
-       for(var i in arr){
-      console.log(arr[i] + 'arr')
-         
-          this.employees.push(i)
-          if(i.manager != null){
-              this.recursiveArr(context, i.manager)
-          }
-      }
-    }
+   
   }
   
 }
@@ -51,5 +52,24 @@ export default {
     padding: 50px 20px;
     font-family: 'Lato', Arial, Helvetica, sans-serif
   }
+
+  body {
+  font-family: Menlo, Consolas, monospace;
+  color: #444;
+}
+.item {
+  cursor: pointer;
+}
+.bold {
+  font-weight: bold;
+}
+ul {
+  padding-left: 5em;
+  line-height: 1.5em;
+  list-style-type: none;
+}
+li{
+  list-style-type: none;
+}
 
 </style>

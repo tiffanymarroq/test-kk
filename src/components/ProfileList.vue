@@ -9,16 +9,7 @@
         <br>
         <br>
         <Profile class="flex"
-            v-for="(employee, i) in company" 
-            :key="i"
-            :name="employee.name"
-            :title="employee.title"
-            :office="employee.office"
-            :email="employee.email"
-            :isManager=" employee.name "
-            :company="employee.manager"
-            :search="search"
-            >
+            :company="company">
         </Profile>
     </div>
 </template>
@@ -43,20 +34,37 @@ export default {
       filteredItems() {
         if (this.company != null) {
           return this.company.filter(employee => {
-              if(employee.title.toLowerCase().includes(this.search.toLowerCase()) || 
-                employee.name.toLowerCase().includes(this.search.toLowerCase()) || 
-                employee.office.toLowerCase().includes(this.search.toLowerCase())){
-                    console.log(employee.name)
-                    return true
-                }
-            return false
+                
+                return employee.title.toLowerCase().includes(this.search.toLowerCase()) || 
+                    employee.name.toLowerCase().includes(this.search.toLowerCase()) || 
+                    employee.office.toLowerCase().includes(this.search.toLowerCase())
+                 
+             
           })
         }
-      },
-
+      }
     },
     methods: {
-      
+      searchTree(members, key){
+          console.log(members)
+        var temp=[]
+          for( var m in members){
+              if(members[m].name.includes(key) 
+              || members[m].title.includes(key) 
+              || members[m].office.includes(key) ){
+                  console.log('in')
+                  return temp.concat(members[m])
+              }else if( members[m].manager != null){
+                  var m = searchTree(members[m].manager);
+                  if(m!=null){
+                      temp.concat(m)
+                  }
+              }else{
+                  console.log("nope")
+                  return null;
+              }
+          }
+      }
     }
 
 }

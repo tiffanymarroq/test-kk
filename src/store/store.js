@@ -8,18 +8,20 @@ const createStore = () => {
             company:[],
         },
         mutations:{
-            setCompany(state, employee){
-                state.company.push(employee)
+            setCompany(state, employee, depth){
+                state.company.push(employee, depth)
             }
-
         },
         actions:{
             recursiveArr(context, arr){
-                console.log(arr)
+                var depth = 0;
                 for(var i in arr){
-                    context.commit('setCompany', i)
+                    console.log('in')
+                    console.log(arr[i])
+                    context.commit('setCompany', arr[i], depth)
                     if(i.manager != null){
-                        this.recursiveArr(context, i.manager)
+                        this.recursiveArr(context, i.manager,depth)
+                        depth = depth + 1
                     }
                 }
             }
@@ -28,7 +30,6 @@ const createStore = () => {
             getCompany(state) { 
                 return state.company
             }
-
         }
     })
 }
