@@ -1,32 +1,20 @@
 <template>
-    <li>
-        <div >       
-         <div :key = "key" v-for="(value, key) in filterArr">
-          
-             <strong>{{value.name}}</strong>  
-             <p>Title - {{value.title}}</p>
-             <p>Email - {{value.email}}</p>
-             <p>Office - {{value.office}}</p>
-           
-             
-        </div>
 
-        <!-- <h1>{{model.name}}</h1> -->
+  <div>
+    <div :key="key" v-for="(value, key) in filterArr">
+      <div class="card__element">
+        <div class="card__content">
+          <strong>{{value.name}}</strong>
+          <p>Title - {{value.title}}</p>
+          <p>Email - {{value.email}}</p>
+          <p>Office - {{value.office}}</p>
         </div>
-        <ul >
-        <item
-            class="item"
-            v-for="(model, index) in filterArr"
-            :key="index"
-            :search="search"
-            :model="model.manager"> 
-            <h1>hi</h1>
-        </item>
-        <!-- <li class="add" @click="addChild">+</li> -->
-        </ul   >
-
-    </li>
+      </div>
+    </div>
+  </div>
 </template>
+
+
 
 
 <script>
@@ -44,111 +32,47 @@ export default {
     search: String
 
   },
-  data: function () {
-    return {
-      open: false
-    }
-  },
   computed: {
-    filterArr() {
-
-      if (this.model != null) {
-              this.findElement(this.model,this.search)
-        // for (var m in this.model){
-        //   console.log(this.model[m].manager)
-        //   if (this.model[m].name.includes(this.search)) {
-        //     console.log(this.model[m].name)
-        //     temp.push({
-        //       name: this.model[m].name,
-        //       title: this.model[m].title,
-        //       office: this.model[m].office,
-        //       email: this.model[m].email
-        //     })
-        //   }
-        //   if(this.model[m].manager > 1){
-
-        //     temp.push({
-        //       name: this.model[m].name,
-        //       title: this.model[m].title,
-        //       office: this.model[m].office,
-        //       email: this.model[m].email
-        //     })
-        //   }
-        // }
-        // var found = this.findElement(this.model, this.search)
-        // if(found != null){
-        //   for( var f in found){
-        //     temp.push({
-        //       name: found[f].name,
-        //       title: found[f].title,
-        //       office: found[f].office,
-        //       email: found[f].email,
-        //     })
-        //   }
-
-        // }
-       
-      }
-
-      return this.temp
-    }
-  },
-
-  methods: {
-    findElement(arr, value) {
-      // var temp = []
-      for (var a in arr) {
-        if (arr[a].name.includes(value)) {
-          this.temp.push({
-            name: arr[a].name,
-            title: arr[a].title,
-            office: arr[a].office,
-            email: arr[a].email,
-          })
-
-        }
-        if (arr[a].manager != null) {
-          this.findElement(arr[a].manager, value)
-        }
-      }
-      console.log(this.temp)
-      return this.temp
-
-
-    },
-    toggle: function () {
-      if (this.isFolder) {
-        this.open = !this.open
-      }
-    },
-    changeType: function () {
-      if (!this.isFolder) {
-        Vue.set(this.model, 'manager', [])
-        this.addChild()
-        this.open = true
-      }
-    },
-    addChild: function () {
-      this.model.push({
-        name: 'new stuff'
+    filterArr() { 
+      
+       return this.$store.getters.getCompany.filter( m =>{
+        return m.name.toLowerCase().includes(this.search)
       })
     }
-  }
+  },
+
 }
 
 
 </script>
 
 <style scoped>
-    /* .item {
-      display: flex;
-      padding: 20px;
-      box-sizing: border-box;
-      flex-wrap: wrap;
-      align-content: center;
-      justify-content: center;
-      float: left;
-      max-width: 800px;
-    } */
+    .card__element{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 2px 6px #ccc;
+    background-color: white;
+    width: 350px;
+    min-height: 300px;
+    margin: 5px;
+    display: inline-block;
+  }
 
+   .card__element:hover{
+    box-shadow: none;
+  }
+
+  .card__content{
+    padding: 20px; 
+    
+  }
+  .card__info{
+    margin-left: auto;
+    margin-right: auto    
+  }
+
+  .card__title{
+    text-transform: uppercase;
+    text-align: center
+  }
 </style>
