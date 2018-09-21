@@ -9,8 +9,8 @@
       </div>
       <br>
       <br>
-      <div class="flex">
-        <item class="item" :model="getArr" :search="search">
+      <div >
+        <item class="flex" :model="getArr" :search="search">
         </item>
       </div>
     </div>
@@ -41,7 +41,7 @@ export default {
     axios.get('/src/assets/FakeOrgJSON.json')
     .then(data => {
 
-      this.findElement(data.data)
+      this.setEmployees(data.data)
 
     })
     .catch(err => {
@@ -54,10 +54,9 @@ export default {
     }
   },
   methods: {
-       findElement(arr) {
+       setEmployees(arr) {
 
         for (var a in arr) {
-          console.log(arr[a].name)
           this.$store.commit('setCompany',{
             name: arr[a].name,
             title: arr[a].title,
@@ -65,7 +64,7 @@ export default {
             email: arr[a].email,
           })
             if (arr[a].manager != null) {
-              this.findElement(arr[a].manager)
+              this.setEmployees(arr[a].manager)
           } 
         }
     },
@@ -90,21 +89,17 @@ export default {
   cursor: pointer;
 }
 .flex{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-content: center
+        display: flex;
+        padding: 20px;
+        box-sizing: border-box;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        max-width: 1200px;
 }
 .bold {
   font-weight: bold;
 }
-ul {
-  padding-left: 3em;
-  line-height: 1.5em;
-  list-style-type: none;
-}
-li{
-  list-style-type: none;
-}
+
 
 </style>

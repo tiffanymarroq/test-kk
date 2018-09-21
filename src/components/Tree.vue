@@ -1,6 +1,6 @@
 <template>
 
-  <div>
+  <div >
     <div :key="key" v-for="(value, key) in filterArr">
       <div class="card__element">
         <div class="card__content">
@@ -25,18 +25,16 @@ export default {
       name: '',
       company: []
     }
-
   },
   props: {
-    model: Array,
     search: String
-
   },
   computed: {
     filterArr() { 
-      
        return this.$store.getters.getCompany.filter( m =>{
-        return m.name.toLowerCase().includes(this.search)
+        return (m.name.toLowerCase().includes(this.search.toLowerCase()) ||
+         m.title.toLowerCase().includes(this.search.toLowerCase()) ||
+         m.office.toLowerCase().includes(this.search.toLowerCase())  ) 
       })
     }
   },
@@ -53,7 +51,7 @@ export default {
     box-shadow: 0px 2px 6px #ccc;
     background-color: white;
     width: 350px;
-    min-height: 300px;
+    min-height: 200px;
     margin: 5px;
     display: inline-block;
   }
