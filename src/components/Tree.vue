@@ -1,11 +1,13 @@
 <template>
     <li>
-        <div>       
-         <div  :key = "key" v-for="(value, key) in model">
-             <strong>{{value.name}}</strong> - 
+        <div >       
+         <div :key = "key" v-for="(value, key) in filterArr">
+          
+             <strong>{{value.name}}</strong>  
              <p>Title - {{value.title}}</p>
              <p>Email - {{value.email}}</p>
              <p>Office - {{value.office}}</p>
+           
              
         </div>
 
@@ -18,6 +20,7 @@
             :key="index"
             :search="search"
             :model="model.manager"> 
+            <h1>hi</h1>
         </item>
         <!-- <li class="add" @click="addChild">+</li> -->
         </ul   >
@@ -28,10 +31,14 @@
 
 <script>
 export default {
- name: 'item',
- data(){
-     name: ''
-    },
+  name: 'item',
+  data() {
+    return {
+      name: '',
+      company: []
+    }
+
+  },
   props: {
     model: Array,
     search: String
@@ -43,34 +50,70 @@ export default {
     }
   },
   computed: {
-
     filterArr() {
-      var temp = []
-      if (this.model != null) {
-        return this.model.filter(m => {
-          console.log(this.search)
-        //   console.log(this.findElement(m, this.search))
 
-          if (m.name.includes(this.search)) {
-            temp.push(m.name)
-            console.log(m.name)
-            console.log(temp)
-            return true
-          }
-          return false
-        })
+      if (this.model != null) {
+              this.findElement(this.model,this.search)
+        // for (var m in this.model){
+        //   console.log(this.model[m].manager)
+        //   if (this.model[m].name.includes(this.search)) {
+        //     console.log(this.model[m].name)
+        //     temp.push({
+        //       name: this.model[m].name,
+        //       title: this.model[m].title,
+        //       office: this.model[m].office,
+        //       email: this.model[m].email
+        //     })
+        //   }
+        //   if(this.model[m].manager > 1){
+
+        //     temp.push({
+        //       name: this.model[m].name,
+        //       title: this.model[m].title,
+        //       office: this.model[m].office,
+        //       email: this.model[m].email
+        //     })
+        //   }
+        // }
+        // var found = this.findElement(this.model, this.search)
+        // if(found != null){
+        //   for( var f in found){
+        //     temp.push({
+        //       name: found[f].name,
+        //       title: found[f].title,
+        //       office: found[f].office,
+        //       email: found[f].email,
+        //     })
+        //   }
+
+        // }
+       
       }
+
+      return this.temp
     }
-  },    
+  },
+
   methods: {
-    findElement(arr, value){
-        if(arr != null){
-                    for(var i in arr){
-                    if(arr[i].name.includes(value)){
-                        console.log(arr[i].name)
-                    }
-                }
+    findElement(arr, value) {
+      // var temp = []
+      for (var a in arr) {
+        if (arr[a].name.includes(value)) {
+          this.temp.push({
+            name: arr[a].name,
+            title: arr[a].title,
+            office: arr[a].office,
+            email: arr[a].email,
+          })
+
         }
+        if (arr[a].manager != null) {
+          this.findElement(arr[a].manager, value)
+        }
+      }
+      console.log(this.temp)
+      return this.temp
+
 
     },
     toggle: function () {
@@ -92,6 +135,7 @@ export default {
     }
   }
 }
+
 
 </script>
 
